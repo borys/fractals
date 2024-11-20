@@ -31,7 +31,7 @@ const steps = document.getElementById("steps");
 
 steps.addEventListener("input", (event) => {
   if (!(event.target instanceof HTMLInputElement)) {
-    throw new Error('Expected input element')
+    throw new Error("Expected input element");
   }
 
   sierpinski.generate(initTriangle, +event.target.value);
