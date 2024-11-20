@@ -3,6 +3,7 @@ import { Position } from "./Position.js";
 import { Triangle } from "./Triangle.js";
 
 export class SierpinskiTriangle {
+  /** @type {Triangle[]} */
   #triangles = [];
 
   /**
