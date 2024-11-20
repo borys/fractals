@@ -9,7 +9,7 @@ import { Complex } from "./Complex.js";
  * it is considered to be divergent
  * @param {Complex} z_0 z_0 argument
  * @param {Complex} c c argument
- * @param {number} maxIterations
+ * @param {number} maxIterations limit number of iterations
  * @returns iterations number
  */
 export function quadraticMapSequence(z_0, c, maxIterations) {
