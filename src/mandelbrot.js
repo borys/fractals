@@ -21,8 +21,12 @@ const plotter = new Plotter(ctx);
 plotter.setBounds(initPlotBounds);
 
 const mandelbrot = (c) =>
-  quadraticMapSequence(new Complex(0, 0), c, maxIterations);
-plotter.plot(mandelbrot, maxIterations);
+  Math.floor(
+    (quadraticMapSequence(new Complex(0, 0), c, maxIterations) /
+      maxIterations) *
+      255,
+  );
+plotter.plot(mandelbrot);
 
 let selectionStart = null;
 const plotSizeRatio = plotter.height / plotter.width;
@@ -57,7 +61,7 @@ canvas.addEventListener("mouseup", (ev) => {
   };
 
   plotter.setBounds(newPlotBounds);
-  plotter.plot(mandelbrot, maxIterations);
+  plotter.plot(mandelbrot);
   selectionStart = null;
 });
 
@@ -80,5 +84,5 @@ canvas.addEventListener("contextmenu", (ev) => {
   ev.stopPropagation();
 
   plotter.setBounds(initPlotBounds);
-  plotter.plot(mandelbrot, maxIterations);
+  plotter.plot(mandelbrot);
 });

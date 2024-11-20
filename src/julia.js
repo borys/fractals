@@ -4,7 +4,7 @@ import { quadraticMapSequence } from "./lib/quadraticMapSequence.js";
 import { Plotter } from "./lib/Plotter.js";
 import { Complex } from "./lib/Complex.js";
 
-const maxIterations = 100;
+const maxIterations = 10;
 const plotBounds = { left: -2, right: 2, top: 2, bottom: -2 };
 
 const canvas = /** @type {HTMLCanvasElement} */ (
@@ -18,10 +18,13 @@ plotter.setBounds(plotBounds);
 const initC = new Complex(-0.4, 0.6);
 let angle = initC.angle();
 
+const julia = (z_0) =>
+  Math.floor(
+    (quadraticMapSequence(z_0, initC, maxIterations) / maxIterations) * 255,
+  );
+
 setInterval(() => {
   angle = angle + 0.1;
   initC.setAngle(angle);
-
-  const julia = (z_0) => quadraticMapSequence(z_0, initC, maxIterations);
-  plotter.plot(julia, maxIterations);
+  plotter.plot(julia);
 }, 100);

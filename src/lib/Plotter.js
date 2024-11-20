@@ -3,29 +3,36 @@ import { Color } from "./Color.js";
 import { Complex } from "./Complex.js";
 
 export class Plotter {
-  ctx;
-  width;
-  height;
+  #plotBounds = { left: null, right: null, top: null, bottom: null };
+  /** @type {Color[]} */
+  #colorMap = [];
+  /** @type {number} */
+  #xScale;
+  /** @type {number} */
+  #yScale;
+
+  /** @type {CanvasRenderingContext2D} */
+  context;
+
+  get width() {
+    return this.context.canvas.offsetWidth;
+  }
+
+  get height() {
+    return this.context.canvas.offsetHeight;
+  }
+
+  /** @type {ImageData} */
   plotImage;
-  plotBounds = { left: null, right: null, top: null, bottom: null };
-  xScale;
-  yScale;
-  colorMap = [];
 
   /**
    *
    * @param {CanvasRenderingContext2D} context2d
    */
   constructor(context2d) {
-    this.ctx = context2d;
-    this.width = context2d.canvas.offsetWidth;
-    this.height = context2d.canvas.offsetHeight;
-    this.plotImage = this.ctx.createImageData(this.width, this.height);
-    this.colorMap = this.getColorMap();
-  }
-
-  getColorMap() {
-    return Array.from(
+    this.context = context2d;
+    this.plotImage = this.context.createImageData(this.width, this.height);
+    this.#colorMap = Array.from(
       { length: 256 },
       (_, c) =>
         new Color(Math.floor((c * c) / 255), Math.floor((c * c) / 255), c, 255),
@@ -33,19 +40,19 @@ export class Plotter {
   }
 
   setBounds({ left, right, top, bottom }) {
-    this.plotBounds.left = left;
-    this.plotBounds.right = right;
-    this.plotBounds.top = top;
-    this.plotBounds.bottom = bottom;
+    this.#plotBounds.left = left;
+    this.#plotBounds.right = right;
+    this.#plotBounds.top = top;
+    this.#plotBounds.bottom = bottom;
 
-    this.xScale = (right - left) / this.width;
-    this.yScale = (top - bottom) / this.height;
+    this.#xScale = (right - left) / this.width;
+    this.#yScale = (top - bottom) / this.height;
   }
 
   mapToPlotCoordinates({ x, y }) {
     return new Complex(
-      x * this.xScale + this.plotBounds.left,
-      -y * this.yScale + this.plotBounds.top,
+      x * this.#xScale + this.#plotBounds.left,
+      -y * this.#yScale + this.#plotBounds.top,
     );
   }
 
@@ -61,19 +68,19 @@ export class Plotter {
     plotImg.data[pixelIdx + 3] = color.a;
   }
 
-  plot(generate, maxIterations) {
-    const { width, height } = this.plotImage;
-
-    for (let x = 0; x < width; x++) {
-      for (let y = 0; y < height; y++) {
+  /**
+   *
+   * @param {*} generate
+   */
+  plot(generate) {
+    for (let x = 0; x < this.width; x++) {
+      for (let y = 0; y < this.height; y++) {
         const point = this.mapToPlotCoordinates({ x, y });
-        const iterations = generate(point);
-
-        const colorIdx = Math.floor((iterations * 255) / maxIterations);
-        this.setPoint({ x, y }, this.colorMap[colorIdx]);
+        const colorIdx = generate(point);
+        this.setPoint({ x, y }, this.#colorMap[colorIdx]);
       }
     }
 
-    this.ctx.putImageData(this.plotImage, 0, 0);
+    this.context.putImageData(this.plotImage, 0, 0);
   }
 }
