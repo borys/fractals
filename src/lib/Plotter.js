@@ -6,7 +6,7 @@ export class Plotter {
   ctx;
   width;
   height;
-  plotImg;
+  plotImage;
   plotBounds = { left: null, right: null, top: null, bottom: null };
   xScale;
   yScale;
@@ -20,7 +20,7 @@ export class Plotter {
     this.ctx = context2d;
     this.width = context2d.canvas.offsetWidth;
     this.height = context2d.canvas.offsetHeight;
-    this.plotImg = this.ctx.createImageData(this.width, this.height);
+    this.plotImage = this.ctx.createImageData(this.width, this.height);
     this.colorMap = this.getColorMap();
   }
 
@@ -32,7 +32,7 @@ export class Plotter {
     );
   }
 
-  setBounds(left, right, top, bottom) {
+  setBounds({ left, right, top, bottom }) {
     this.plotBounds.left = left;
     this.plotBounds.right = right;
     this.plotBounds.top = top;
@@ -51,7 +51,7 @@ export class Plotter {
 
   setPoint({ x, y }, color) {
     const bytesPerPixel = 4;
-    const { plotImg } = this;
+    const { plotImage: plotImg } = this;
 
     const pixelIdx = (y * plotImg.width + x) * bytesPerPixel;
 
@@ -62,7 +62,7 @@ export class Plotter {
   }
 
   plot(generate, maxIterations) {
-    const { width, height } = this.plotImg;
+    const { width, height } = this.plotImage;
 
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
@@ -74,6 +74,6 @@ export class Plotter {
       }
     }
 
-    this.ctx.putImageData(this.plotImg, 0, 0);
+    this.ctx.putImageData(this.plotImage, 0, 0);
   }
 }

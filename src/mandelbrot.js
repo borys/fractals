@@ -5,94 +5,80 @@ import { Plotter } from "./lib/Plotter.js";
 import { Complex } from "./lib/Complex.js";
 
 const maxIterations = 100;
+const initPlotBounds = {
+  left: -1.5,
+  right: 1,
+  top: 1,
+  bottom: -1,
+};
 
 const canvas = /** @type {HTMLCanvasElement} */ (
   document.getElementById("plot")
 );
 const ctx = canvas.getContext("2d");
 
-const mPlotter = new Plotter(ctx);
-mPlotter.setBounds(-1.5, 1, 1, -1);
+const plotter = new Plotter(ctx);
+plotter.setBounds(initPlotBounds);
 
 const mandelbrot = (c) =>
   quadraticMapSequence(new Complex(0, 0), c, maxIterations);
-mPlotter.plot(mandelbrot, maxIterations);
+plotter.plot(mandelbrot, maxIterations);
 
-/*
-document.getElementById('mplot').oncontextmenu = function () {
-  mPlotter.setBounds(-1.5, 1, 1, -1);
-  mPlotter.plot();
-  return false;
-};*/
+let selectionStart = null;
+const plotSizeRatio = plotter.height / plotter.width;
 
-// this.heightWidth = this.height / this.width;
-// this.state = null;
-// this.selected = [{ x: 0, y: 0 }];
-// if (useEvents) {
-//   this.canvas.onmousedown = function (ev) {
-//     var
-//       relX = ev.clientX - canvas.offsetLeft, relY = ev.clientY - canvas.offsetTop;
+canvas.addEventListener("mousedown", (ev) => {
+  if (selectionStart) {
+    return;
+  }
 
-//     if (state === null && ev.which === 1) {
-//       state = 'begin';
-//       selected[0].x = relX;
-//       selected[0].y = relY;
-//     }
-//   };
+  selectionStart = { x: ev.offsetX, y: ev.offsetY };
+});
 
-//   this.canvas.onmouseup = function (ev) {
-//     var
-//       relX = ev.clientX - canvas.offsetLeft, relY = ev.clientY - canvas.offsetTop, upperLeft, bottomRight, tmp;
+canvas.addEventListener("mouseup", (ev) => {
+  if (!selectionStart) {
+    return;
+  }
 
-//     if (state === 'begin' && ev.which === 1) {
-//       state = 'waiting';
+  const width = ev.offsetX - selectionStart.x;
+  const height =
+    Math.sign(ev.offsetY - selectionStart.y) * plotSizeRatio * Math.abs(width);
 
-//       tmp = Math.abs((relX - selected[0].x) * heightWidth);
-//       if (relY < selected[0].y) {
-//         tmp = -tmp;
-//       }
-//       tmp = tmp + selected[0].y;
+  const selectionEnd = { x: ev.offsetX, y: selectionStart.y + height };
 
-//       upperLeft = this.realToPlotCoord({
-//         x: Math.min(selected[0].x, relX),
-//         y: Math.min(selected[0].y, tmp)
-//       });
+  const startCorner = plotter.mapToPlotCoordinates(selectionStart);
+  const endCorner = plotter.mapToPlotCoordinates(selectionEnd);
 
-//       bottomRight = that.realToPlotCoord({
-//         x: Math.max(selected[0].x, relX),
-//         y: Math.max(selected[0].y, tmp)
-//       });
+  const newPlotBounds = {
+    left: Math.min(startCorner.re, endCorner.re),
+    right: Math.max(startCorner.re, endCorner.re),
+    top: Math.max(startCorner.im, endCorner.im),
+    bottom: Math.min(startCorner.im, endCorner.im),
+  };
 
-//       ctx.putImageData(plotImg, 0, 0);
-//       that.setBounds(upperLeft.x, bottomRight.x, upperLeft.y, bottomRight.y);
-//       that.plot();
-//       state = null;
-//     }
-//   };
+  plotter.setBounds(newPlotBounds);
+  plotter.plot(mandelbrot, maxIterations);
+  selectionStart = null;
+});
 
-//   this.canvas.onmousemove = function (ev) {
-//     var relX, relY, newHeight;
-//     if (state === 'begin') {
-//       relX = ev.clientX - canvas.offsetLeft;
-//       relY = ev.clientY - canvas.offsetTop;
+canvas.addEventListener("mousemove", (ev) => {
+  if (!selectionStart) {
+    return;
+  }
 
-//       ctx.putImageData(plotImg, 0, 0);
-//       newHeight = Math.abs((relX - selected[0].x) * heightWidth);
+  const width = ev.offsetX - selectionStart.x;
+  const height =
+    Math.sign(ev.offsetY - selectionStart.y) * plotSizeRatio * Math.abs(width);
 
-//       if (relY < selected[0].y) {
-//         newHeight = -newHeight;
-//       }
+  ctx.putImageData(plotter.plotImage, 0, 0);
+  ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+  ctx.fillRect(selectionStart.x, selectionStart.y, width, height);
+});
 
-//       ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-//       ctx.fillRect(selected[0].x, selected[0].y, relX - selected[0].x, newHeight);
-//     }
-//   };
-// }
-// realToPlotCoord = function (p) {
-//   var result = { x: null, y: null };
+canvas.addEventListener("contextmenu", (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
 
-//   result.x = p.x * this.xScale + this.plotBounds.left;
-//   result.y = -p.y * this.yScale + this.plotBounds.top;
-
-//   return result;
-// };
+  plotter.setBounds(initPlotBounds);
+  plotter.plot(mandelbrot, maxIterations);
+});
