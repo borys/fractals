@@ -1,8 +1,8 @@
 "use strict";
 
-import { Position } from "./Position.js";
-import { SierpinskiTriangle } from "./SierpinskiTriangle.js";
-import { Triangle } from "./Triangle.js";
+import { Position } from "./lib/Position.js";
+import { SierpinskiTriangle } from "./lib/SierpinskiTriangle.js";
+import { Triangle } from "./lib/Triangle.js";
 
 const canvas = /** @type {HTMLCanvasElement} */ (
   document.getElementById("plot")
