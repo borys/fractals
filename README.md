@@ -1,4 +1,6 @@
-# Snake game
+# Fractals
+
+[![Run tests](https://github.com/borys/fractals/actions/workflows/run-test.yml/badge.svg)](https://github.com/borys/fractals/actions/workflows/run-test.yml)
 
 Toy-project, generating fractals using pure VanillaJS and canvas.
 
