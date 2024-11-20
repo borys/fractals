@@ -2,18 +2,45 @@
   <head>
     <title>Fractals</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <ul>
-      <li>
-        <a href="julia.html">Animated Julia Set</a>
-      </li>
-      <li>
-        <a href="mandelbrot.html">Mandelbrot Set</a>
-      </li>
-      <li>
-        <a href="sierpinski.html">Sierpinski Triangle</a>
-      </li>
-    </ul>
+    <h1>Fractals</h1>
+    <div style="display: flex">
+      <a href="mandelbrot.html">
+        <div class="card">
+          <img
+            src="images/mandelbrot.webp"
+            width="250"
+            height="200"
+            alt="Mandelbrot"
+          />
+          <div class="description">
+            <h3>Mandelbrot <small>with zoom</small></h3>
+          </div>
+        </div>
+      </a>
+      <a href="julia.html">
+        <div class="card">
+          <img src="images/julia.webp" width="250" height="200" alt="Julia" />
+          <div class="description">
+            <h3>Julia <small>animated</small></h3>
+          </div>
+        </div>
+      </a>
+      <a href="sierpinski.html">
+        <div class="card">
+          <img
+            src="images/sierpinski.webp"
+            width="250"
+            height="200"
+            alt="Sierpinski"
+          />
+          <div class="description">
+            <h3>Sierpinski Triangle</h3>
+          </div>
+        </div>
+      </a>
+    </div>
   </body>
 </html>
