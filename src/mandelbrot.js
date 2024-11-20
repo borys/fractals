@@ -5,12 +5,13 @@ import { Plotter } from "./lib/Plotter.js";
 import { Complex } from "./lib/Complex.js";
 
 const maxIterations = 100;
-const initPlotBounds = {
-  left: -1.5,
-  right: 1,
-  top: 1,
-  bottom: -1,
-};
+const initPlotBounds = { left: -1.5, right: 1, top: 1, bottom: -1 };
+const mandelbrot = (c) =>
+  Math.floor(
+    (quadraticMapSequence(new Complex(0, 0), c, maxIterations) /
+      maxIterations) *
+      255,
+  );
 
 const canvas = /** @type {HTMLCanvasElement} */ (
   document.getElementById("plot")
@@ -19,13 +20,6 @@ const ctx = canvas.getContext("2d");
 
 const plotter = new Plotter(ctx);
 plotter.setBounds(initPlotBounds);
-
-const mandelbrot = (c) =>
-  Math.floor(
-    (quadraticMapSequence(new Complex(0, 0), c, maxIterations) /
-      maxIterations) *
-      255,
-  );
 plotter.plot(mandelbrot);
 
 let selectionStart = null;
