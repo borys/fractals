@@ -1,0 +1,29 @@
+body {
+  max-width: 800px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Courier New", Courier, monospace;
+}
+
+h3 {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.plot-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.control-panel {
+  height: fit-content;
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+}

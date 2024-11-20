@@ -1,0 +1,4 @@
+pnpm check-prettier
+pnpm check-types
+pnpm check-eslint
+pnpm test
