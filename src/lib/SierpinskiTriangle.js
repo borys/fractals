@@ -8,8 +8,8 @@ export class SierpinskiTriangle {
 
   /**
    * It takes triangle and return array of three triangles
-   * @param {Triangle} triangle
-   * @returns {Triangle[]}
+   * @param {Triangle} triangle triangle to cut
+   * @returns {Triangle[]} array of three triangles
    */
   #cutTriangle(triangle) {
     const midPoint0x1 = Position.midPoint(
@@ -47,7 +47,7 @@ export class SierpinskiTriangle {
   /**
    * Generate sierpinski triangle from init triangle
    * @param {Triangle} initTriangle init triangle
-   * @param {Number} steps iteration number
+   * @param {number} steps iteration number
    */
   generate(initTriangle, steps) {
     let triangles = [initTriangle];

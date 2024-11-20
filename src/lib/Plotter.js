@@ -17,6 +17,7 @@ export class Plotter {
 
   /**
    * plot width in pixels
+   * @returns plot width in pixels
    */
   get width() {
     return this.context.canvas.offsetWidth;
@@ -24,6 +25,7 @@ export class Plotter {
 
   /**
    * plot height in pixels
+   * @returns plot height in pixels
    */
   get height() {
     return this.context.canvas.offsetHeight;
@@ -33,8 +35,8 @@ export class Plotter {
   plotImage;
 
   /**
-   *
-   * @param {CanvasRenderingContext2D} context2d
+   * Creates plotter
+   * @param {CanvasRenderingContext2D} context2d canvas context2d
    */
   constructor(context2d) {
     this.context = context2d;
@@ -86,14 +88,14 @@ export class Plotter {
   }
 
   /**
-   * This callback is displayed as part of the Requester class.
+   * This callback will be used in plot
    * @callback PlotCallback
    * @param {Complex} pos processed number
    * @returns color index number between 0-255
    */
   /**
-   * Prepares plot using provide function
-   * @param {PlotCallback} generate
+   * Prepares plot, using provided generate function
+   * @param {PlotCallback} generate function that return color index
    */
   plot(generate) {
     for (let x = 0; x < this.width; x++) {

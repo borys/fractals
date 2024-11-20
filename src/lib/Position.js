@@ -5,9 +5,9 @@ export class Position {
   y;
 
   /**
-   *
-   * @param {Number} x x coordinates
-   * @param {Number} y y coordinates
+   * Creates position object
+   * @param {number} x x coordinates
+   * @param {number} y y coordinates
    */
   constructor(x, y) {
     this.x = x;
@@ -27,7 +27,7 @@ export class Position {
    * Returns coordinates of middle point between points passed as arguments
    * @param {Position} a first point coordinates
    * @param {Position} b second point coordinates
-   * @returns { Position }
+   * @returns { Position } middle point between provided arguments
    */
   static midPoint(a, b) {
     return new Position((a.x + b.x) / 2, (a.y + b.y) / 2);
