@@ -1,6 +1,6 @@
 "use strict";
 
-import { Coord } from "./Coord.js";
+import { Position } from "./Position.js";
 import { SierpinskiTriangle } from "./SierpinskiTriangle.js";
 import { Triangle } from "./Triangle.js";
 
@@ -18,9 +18,9 @@ gradient.addColorStop(1, "#00FF00");
 context.fillStyle = gradient;
 
 const initTriangle = new Triangle(
-  new Coord(width / 2, 0),
-  new Coord(width, height),
-  new Coord(0, height),
+  new Position(width / 2, 0),
+  new Position(width, height),
+  new Position(0, height),
 );
 
 const sierpinski = new SierpinskiTriangle();

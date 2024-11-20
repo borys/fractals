@@ -1,6 +1,6 @@
 "use strict";
 
-export class Coord {
+export class Position {
   x;
   y;
 
@@ -16,20 +16,20 @@ export class Coord {
 
   /**
    * Clones coordinates
-   * @param {Coord} c cloned coordinates
+   * @param {Position} c cloned coordinates
    * @returns Coord
    */
   static clone(c) {
-    return new Coord(c.x, c.y);
+    return new Position(c.x, c.y);
   }
 
   /**
    * Returns coordinates of middle point between points passed as arguments
-   * @param {Coord} a first point coordinates
-   * @param {Coord} b second point coordinates
-   * @returns { Coord }
+   * @param {Position} a first point coordinates
+   * @param {Position} b second point coordinates
+   * @returns { Position }
    */
   static midPoint(a, b) {
-    return new Coord((a.x + b.x) / 2, (a.y + b.y) / 2);
+    return new Position((a.x + b.x) / 2, (a.y + b.y) / 2);
   }
 }

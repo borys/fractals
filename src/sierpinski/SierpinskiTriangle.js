@@ -1,5 +1,5 @@
 "use strict";
-import { Coord } from "./Coord.js";
+import { Position } from "./Position.js";
 import { Triangle } from "./Triangle.js";
 
 export class SierpinskiTriangle {
@@ -11,34 +11,34 @@ export class SierpinskiTriangle {
    * @returns {Triangle[]}
    */
   #cutTriangle(triangle) {
-    const midPoint0x1 = Coord.midPoint(
+    const midPoint0x1 = Position.midPoint(
       triangle.vertices[0],
       triangle.vertices[1],
     );
-    const midPoint0x2 = Coord.midPoint(
+    const midPoint0x2 = Position.midPoint(
       triangle.vertices[0],
       triangle.vertices[2],
     );
-    const midPoint1x2 = Coord.midPoint(
+    const midPoint1x2 = Position.midPoint(
       triangle.vertices[1],
       triangle.vertices[2],
     );
 
     return [
       new Triangle(
-        Coord.clone(triangle.vertices[0]),
-        Coord.clone(midPoint0x1),
-        Coord.clone(midPoint0x2),
+        Position.clone(triangle.vertices[0]),
+        Position.clone(midPoint0x1),
+        Position.clone(midPoint0x2),
       ),
       new Triangle(
-        Coord.clone(midPoint0x1),
-        Coord.clone(triangle.vertices[1]),
-        Coord.clone(midPoint1x2),
+        Position.clone(midPoint0x1),
+        Position.clone(triangle.vertices[1]),
+        Position.clone(midPoint1x2),
       ),
       new Triangle(
-        Coord.clone(midPoint0x2),
-        Coord.clone(midPoint1x2),
-        Coord.clone(triangle.vertices[2]),
+        Position.clone(midPoint0x2),
+        Position.clone(midPoint1x2),
+        Position.clone(triangle.vertices[2]),
       ),
     ];
   }
