@@ -4,7 +4,7 @@
 [![Deploy to Pages](https://github.com/borys/fractals/actions/workflows/deploy.yml/badge.svg)](https://github.com/borys/fractals/actions/workflows/deploy.yml)
 
 Toy-project, generating fractals using pure VanillaJS and canvas.
-You may check it here: [>snake game<](https://borys.github.io/fractals/)
+You may check it here: [>fractals<](https://borys.github.io/fractals/)
 
 Project assumptions:
 
