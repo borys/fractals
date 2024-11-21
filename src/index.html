@@ -5,42 +5,42 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <h1>Fractals</h1>
-    <div style="display: flex">
-      <a href="mandelbrot.html">
-        <div class="card">
-          <img
-            src="images/mandelbrot.webp"
-            width="250"
-            height="200"
-            alt="Mandelbrot"
-          />
-          <div class="description">
-            <h3>Mandelbrot <small>with zoom</small></h3>
-          </div>
-        </div>
+    <div class="menu">
+      <a href="inex.html?page=mandelbrot">
+        <button class="button">Mandelbrot</button>
       </a>
-      <a href="julia.html">
-        <div class="card">
-          <img src="images/julia.webp" width="250" height="200" alt="Julia" />
-          <div class="description">
-            <h3>Julia <small>animated</small></h3>
-          </div>
-        </div>
+      <a href="index.html?page=julia">
+        <button class="button">Julia</button>
       </a>
-      <a href="sierpinski.html">
-        <div class="card">
-          <img
-            src="images/sierpinski.webp"
-            width="250"
-            height="200"
-            alt="Sierpinski"
-          />
-          <div class="description">
-            <h3>Sierpinski Triangle</h3>
-          </div>
-        </div>
+      <a href="index.html?page=sierpinski">
+        <button class="button">Sierpinski Triangle</button>
       </a>
     </div>
+
+    <div id="routerOutlet"></div>
+
+    <template id="mandelbrotPage">
+      <div>
+        <h1>Mandelbrot Set</h1>
+        <p>select fragment to zoom in, right click to zoom reset</p>
+      </div>
+      <canvas id="plot" width="500" height="400"></canvas>
+    </template>
+    <template id="juliaPage">
+      <h1>Animated Julia Set</h1>
+      <canvas id="plot" width="500" height="400"></canvas>
+    </template>
+    <template id="sierpinskiPage">
+      <h1>Sierpinski Triangle</h1>
+      <div class="plotWrapper">
+        <canvas id="plot" width="500" height="433"></canvas>
+        <div class="controlPanel">
+          <label for="steps">Steps</label><br />
+          <input type="range" id="steps" min="0" max="6" value="5" />
+        </div>
+      </div>
+    </template>
+
+    <script type="module" src="index.js"></script>
   </body>
 </html>

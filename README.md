@@ -1,8 +1,10 @@
 # Fractals
 
 [![Run tests](https://github.com/borys/fractals/actions/workflows/run-test.yml/badge.svg)](https://github.com/borys/fractals/actions/workflows/run-test.yml)
+[![Deploy to Pages](https://github.com/borys/fractals/actions/workflows/deploy.yml/badge.svg)](https://github.com/borys/fractals/actions/workflows/deploy.yml)
 
 Toy-project, generating fractals using pure VanillaJS and canvas.
+You may check it here: [>snake game<](https://borys.github.io/fractals/)
 
 Project assumptions:
 

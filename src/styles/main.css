@@ -3,6 +3,18 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
 a:link {
@@ -22,18 +34,55 @@ a:active {
   color: #2c2c2c;
 }
 
-.card {
+.menu {
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
   background-color: #fafafa;
   border-radius: 8px;
+  border: 1px solid #646464;
   margin: 5px;
   overflow: hidden;
   box-shadow: 0px 0px 15px -6px #2c2c2c;
+  padding: 10px;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #646464;
 
   &:hover {
     background-color: #f4f4f4;
   }
+}
 
-  .description {
-    text-align: center;
+.sierpinskiPage {
+  .plotWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .controlPanel {
+    height: fit-content;
+    border: 1px solid #646464;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+  }
+}
+
+.mandelbrotPage {
+  canvas {
+    border-radius: 8px;
+    box-sizing: content-box;
+  }
+}
+
+.juliaPage {
+  canvas {
+    border-radius: 8px;
+    box-sizing: content-box;
   }
 }
